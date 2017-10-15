@@ -1,0 +1,51 @@
+Money Exchange Shiny App
+========================================================
+author: Alexander Wu
+date: 10/13/2017
+autosize: true
+
+Introduction
+========================================================
+
+European Money Exchange
+
+- Utilizing euro.cross and euro data 
+
+- Allows users to quickly compute the desire amount of money exchange
+
+Data
+========================================================
+
+```{r, echo=FALSE}
+euro.cross
+```
+
+Step by Step
+========================================================
+
+1. Select the desire exchange monetary units from the drop down bars
+
+2. Enter the desire amount of money you would like to transfer from the first unit and press CONFIRM
+
+3. On the right side, you will see the amount that will be exchanged to the resulting selected unit
+
+Slide With Code
+========================================================
+
+Server.R
+```{r}
+library(shiny)
+ shinyServer(
+    function(input, output) {
+      output$oid1 <- renderPrint({input$variable})
+      output$oid2 <- renderPrint({input$variable2})
+      output$amount <- reactive({
+        curr1 <- names(currencies[currencies %in% input$variable])
+        curr2 <- names(currencies[currencies %in% input$variable2])
+        input$num*exchange[curr1, curr2]
+      })
+    }
+  )
+```
+
+
